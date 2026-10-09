@@ -34,28 +34,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
-  // 3. MENU MOBILE HAMBÚRGUER
+  // 3. MENU MOBILE HAMBÚRGUER & GAVETA BOUTIQUE
   const menuToggle = document.getElementById('menuToggle');
   const mobileNav = document.getElementById('mobileNav');
+  const mobileNavClose = document.getElementById('mobileNavClose');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
   if (menuToggle && mobileNav) {
+    const closeMenu = () => {
+      menuToggle.classList.remove('active');
+      mobileNav.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+    };
+
+    const openMenu = () => {
+      menuToggle.classList.add('active');
+      mobileNav.classList.add('open');
+      document.body.classList.add('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+    };
+
     const toggleMenu = () => {
-      const isOpen = menuToggle.classList.toggle('active');
-      mobileNav.classList.toggle('open', isOpen);
-      document.body.classList.toggle('menu-open', isOpen);
-      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      const isOpen = menuToggle.classList.contains('active');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     };
 
     menuToggle.addEventListener('click', toggleMenu);
 
+    if (mobileNavClose) {
+      mobileNavClose.addEventListener('click', closeMenu);
+    }
+
     mobileNavLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        mobileNav.classList.remove('open');
-        document.body.classList.remove('menu-open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      });
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Fecha ao clicar fora do container ou pressionar ESC
+    mobileNav.addEventListener('click', (e) => {
+      if (e.target === mobileNav) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+        closeMenu();
+      }
     });
   }
 

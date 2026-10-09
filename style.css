@@ -457,7 +457,7 @@ section {
   gap: 16px;
 }
 
-/* Botão Hambúrguer Mobile */
+/* Botão Hambúrguer Mobile (Três Risquinhos Elegante) */
 .menu-toggle {
   display: flex;
   flex-direction: column;
@@ -465,8 +465,20 @@ section {
   align-items: center;
   width: 44px;
   height: 44px;
-  border-radius: var(--radius-sm);
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(212, 135, 143, 0.12);
   z-index: 1100;
+  transition: var(--transition);
+  cursor: pointer;
+  padding: 0;
+}
+
+.menu-toggle:hover {
+  background: var(--color-rose-light);
+  border-color: var(--color-rose-mid);
+  transform: scale(1.04);
 }
 
 @media (min-width: 992px) {
@@ -479,40 +491,60 @@ section {
   width: 22px;
   height: 2px;
   background-color: var(--color-rose-gold);
-  margin: 3px 0;
-  transition: var(--transition);
-  border-radius: 2px;
+  margin: 2.5px 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 4px;
+}
+
+.hamburger-line:nth-child(2) {
+  width: 17px;
+  align-self: flex-start;
+  margin-left: 11px;
+}
+
+.menu-toggle:hover .hamburger-line:nth-child(2) {
+  width: 22px;
+  margin-left: 0;
+  align-self: center;
+}
+
+.menu-toggle.active {
+  background: #FFFFFF;
+  border-color: var(--color-rose-gold);
 }
 
 .menu-toggle.active .hamburger-line:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+  transform: translateY(7px) rotate(45deg);
+  width: 22px;
 }
 
 .menu-toggle.active .hamburger-line:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 .menu-toggle.active .hamburger-line:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(-7px) rotate(-45deg);
+  width: 22px;
 }
 
-/* Menu Mobile Overlay */
+/* Menu Mobile Overlay & Gaveta Elegante */
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(253, 242, 245, 0.98);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(253, 242, 245, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 1050;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 24px;
+  padding: 0;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-20px);
-  transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+  transform: translateY(-16px);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-nav-overlay.open {
@@ -521,26 +553,214 @@ section {
   transform: translateY(0);
 }
 
+.mobile-nav-container {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 20px 20px 36px 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+/* Topo do Menu Mobile */
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+}
+
+.mobile-brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-rose-gold);
+  line-height: 1.15;
+}
+
+.mobile-brand-subtitle {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.mobile-nav-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  color: var(--color-rose-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(212, 135, 143, 0.12);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.mobile-nav-close:hover {
+  background: var(--color-rose-light);
+  transform: rotate(90deg);
+}
+
+.mobile-nav-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  margin-bottom: 20px;
+}
+
+/* Lista de Links Estilizada como App */
 .mobile-nav-links {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  gap: 10px;
   list-style: none;
-  margin-bottom: 36px;
+  margin: 0 0 24px 0;
+  padding: 0;
+  flex-grow: 1;
 }
 
 .mobile-nav-link {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  background: #FFFFFF;
+  border: 1px solid rgba(232, 160, 180, 0.22);
+  border-radius: 14px;
   color: var(--color-heading);
+  text-decoration: none;
   font-weight: 500;
+  font-size: 0.96rem;
   transition: var(--transition);
+  box-shadow: 0 2px 6px rgba(212, 135, 143, 0.05);
 }
 
 .mobile-nav-link:hover,
 .mobile-nav-link:active {
+  background: var(--color-rose-light);
+  border-color: var(--color-rose-mid);
+  transform: translateX(4px);
+  color: var(--color-rose-gold-hover);
+}
+
+.mobile-nav-link.highlight {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FDF2F5 100%);
+  border-color: var(--color-rose-mid);
+}
+
+.mobile-nav-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--color-rose-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-rose-gold);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.mobile-nav-link:hover .mobile-nav-icon {
+  background: var(--grad-rose-gold);
+  color: #FFFFFF;
+}
+
+.mobile-nav-text {
+  flex-grow: 1;
+  letter-spacing: -0.01em;
+}
+
+.mobile-nav-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  background: rgba(212, 175, 140, 0.15);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  margin-right: 4px;
+}
+
+.mobile-nav-tag-new {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-rose-gold);
+  background: rgba(232, 160, 180, 0.2);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  margin-right: 4px;
+}
+
+.mobile-nav-chevron {
+  color: var(--color-text-muted);
+  opacity: 0.6;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.mobile-nav-link:hover .mobile-nav-chevron {
+  opacity: 1;
+  color: var(--color-rose-gold);
+  transform: translateX(2px);
+}
+
+/* Rodapé da Gaveta Mobile */
+.mobile-nav-footer {
+  padding-top: 16px;
+  border-top: 1px solid rgba(232, 160, 180, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobile-nav-cta {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 0.98rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 20px rgba(212, 135, 143, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mobile-nav-contact-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.mobile-nav-social-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-rose-gold);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.mobile-nav-social-item:hover {
+  color: var(--color-rose-gold-hover);
+}
+
+.mobile-nav-city {
+  color: var(--color-text-muted);
 }
 
 /* 5. HERO SECTION */
